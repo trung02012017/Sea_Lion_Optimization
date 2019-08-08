@@ -91,16 +91,16 @@ class Modified_Sea_Lion_Optimization(object):
 
                 current_agent = self.population[i]
                 SP_leader = np.random.uniform(0, 1)
-                if SP_leader >= 0.6:
+                c = 2 - 2 * epoch_i / self.max_ep
+                b = np.random.uniform(0, 1, self.dimension)
+                p = np.random.uniform(0, 1)
+                if SP_leader >= 0.5:
                     m = np.random.uniform(-1, 1)
                     new_current_agent = np.abs(self.best_solution - current_agent) * np.cos(2 * np.pi * m) \
                                         + self.best_solution
-                else:
-                    c = 2 - 2 * epoch_i / self.max_ep
-                    b = np.random.uniform(0, 1, self.dimension)
-                    p = np.random.uniform(0, 1)
 
-                    if c > 1:
+                else:
+                    if c < 1:
                         a = 0.4
                     else:
                         a = 0.6
@@ -130,14 +130,14 @@ class Modified_Sea_Lion_Optimization(object):
 
 def main():
 
-    population_size = 150
+    population_size = 100
     dimension = 30
-    range0 = -500
-    range1 = 500
-    max_ep = 500
+    range0 = -100
+    range1 = 100
+    max_ep = 1000
 
     fitness_selector = Fitness_Selector()
-    fitness_function = fitness_selector.chose_function('f16')
+    fitness_function = fitness_selector.chose_function('C2')
     population = [np.random.uniform(range0, range1, dimension) for _ in range(population_size)]
 
     SLnO = Modified_Sea_Lion_Optimization(fitness_function, dimension, population_size, population, range0,

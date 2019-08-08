@@ -89,14 +89,14 @@ class Modified_Sea_Lion_Optimization(object):
 
 def main():
 
-    population_size = 150
+    population_size = 100
     dimension = 30
-    range0 = -500
-    range1 = 500
+    range0 = -100
+    range1 = 100
     max_ep = 500
 
     fitness_selector = Fitness_Selector()
-    fitness_function = fitness_selector.chose_function('f16')
+    fitness_function = fitness_selector.chose_function('C1')
     population = [np.random.uniform(range0, range1, dimension) for _ in range(population_size)]
 
     SLnO = Modified_Sea_Lion_Optimization(fitness_function, dimension, population_size, population, range0,
